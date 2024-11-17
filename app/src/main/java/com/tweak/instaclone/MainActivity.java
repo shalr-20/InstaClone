@@ -1,13 +1,23 @@
 package com.tweak.instaclone;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
 import com.tweak.instaclone.databinding.ActivityMainBinding;
+import com.tweak.instaclone.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,14 +31,36 @@ private ActivityMainBinding binding;
      setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ImageView cameraToolbar=toolbar.findViewById(R.id.camera);
+        cameraToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Camera is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                if(menuItem.getItemId()==R.id.navigation_home){
+                    HomeFragment homeFragment=new HomeFragment();
+                    FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment,homeFragment);
+                    transaction.commit();
+                }
+
+                else if(menuItem.getItemId()==R.id.navigation_search){
+                    Toast.makeText(MainActivity.this, "Search Fragment coming soon", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
     }
 
 }
