@@ -14,9 +14,7 @@
         android:background="@color/white"
         android:elevation="10dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:layout_alignParentLeft="true">
-
+        android:theme="?attr/actionBarTheme">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,10 +61,7 @@
                 android:padding="5dp"
                 app:srcCompat="@drawable/message" />
         </LinearLayout>
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -87,10 +82,6 @@
         android:layout_above="@id/nav_view"
         android:layout_below="@+id/toolbar"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
 </RelativeLayout>
